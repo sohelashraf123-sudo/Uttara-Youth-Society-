@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uttara Youth Society</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #E53935;
+      --blue: #1E88E5;
+      --green: #43A047;
+      --yellow: #FDD835;
+      --dark: #1a1a2e;
+      --light: #f9f9f9;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 68px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .nav-brand span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: 1px;
+      color: var(--dark);
+      line-height: 1.1;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2px;
+      background: var(--blue);
+      transition: width 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 5% 60px;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-circles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero-bg-circles span {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.12;
+      animation: float 8s ease-in-out infinite alternate;
+    }
+
+    .c1 { width: 380px; height: 380px; background: var(--blue); top: -80px; right: -60px; animation-delay: 0s; }
+    .c2 { width: 260px; height: 260px; background: var(--red); bottom: 40px; left: -80px; animation-delay: 2s; }
+    .c3 { width: 180px; height: 180px; background: var(--yellow); bottom: 100px; right: 120px; animation-delay: 4s; }
+    .c4 { width: 140px; height: 140px; background: var(--green); top: 120px; left: 80px; animation-delay: 1s; }
+
+    @keyframes float {
+      from { transform: translateY(0px) scale(1); }
+      to   { transform: translateY(-30px) scale(1.05); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+    }
+
+    .hero-logo {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      margin-bottom: 24px;
+      animation: popIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.4); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    .hero-content h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: 3px;
+      animation: slideUp 0.7s 0.2s both;
+    }
+
+    .hero-content h1 span {
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-tagline {
+      margin-top: 18px;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.72);
+      font-weight: 600;
+      animation: slideUp 0.7s 0.35s both;
+    }
+
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+      animation: slideUp 0.7s 0.5s both;
+    }
+
+    .badge {
+      padding: 7px 18px;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .badge-red    { background: var(--red); color: #fff; }
+    .badge-blue   { background: var(--blue); color: #fff; }
+    .badge-green  { background: var(--green); color: #fff; }
+    .badge-yellow { background: var(--yellow); color: var(--dark); }
+
+    .hero-cta {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: slideUp 0.7s 0.65s both;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-outline  { background: transparent; border: 2px solid rgba(255,255,255,0.4); color: #fff; }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 90px 8%;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      padding: 5px 14px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      letter-spacing: 2px;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: #555;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    .about-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .about-card {
+      border-radius: 16px;
+      padding: 28px 20px;
+      text-align: center;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .about-card .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      display: block;
+      line-height: 1;
+    }
+
+    .about-card .lbl {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .ac-red    { background: var(--red); }
+    .ac-blue   { background: var(--blue); }
+    .ac-green  { background: var(--green); }
+    .ac-yellow { background: var(--yellow); color: var(--dark) !important; }
+    .ac-yellow .lbl { opacity: 0.7; }
+
+    .about-text .section-label { background: #E3F2FD; color: var(--blue); }
+
+    .about-values {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .value-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .value-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .value-item p { font-size: 0.95rem; color: #444; line-height: 1.6; }
+    .value-item strong { color: var(--dark); }
+
+    /* ── PROGRAMS ── */
+    #programs {
+      background: var(--light);
+    }
+
+    #programs .section-label { background: #E8F5E9; color: var(--green); }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 50px;
+    }
+
+    .program-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .program-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+    }
+
+    .program-card:nth-child(1)::before { background: var(--red); }
+    .program-card:nth-child(2)::before { background: var(--blue); }
+    .program-card:nth-child(3)::before { background: var(--green); }
+    .program-card:nth-child(4)::before { background: var(--yellow); }
+    .program-card:nth-child(5)::before { background: var(--red); }
+    .program-card:nth-child(6)::before { background: var(--blue); }
+
+    .program-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+
+    .program-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+    }
+
+    .program-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .program-card p {
+      font-size: 0.88rem;
+      color: #666;
+      line-height: 1.65;
+    }
+
+    /* ── TEAM ── */
+    #team {
+      background: var(--dark);
+    }
+
+    #team .section-title { color: var(--white); }
+    #team .section-sub   { color: rgba(255,255,255,0.6); }
+    #team .section-label { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 24px;
+      margin-top: 50px;
+    }
+
+    .member-card {
+      text-align: center;
+      padding: 28px 16px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    .member-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-5px); }
+
+    .member-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: #fff;
+    }
+
+    .av-red    { background: var(--red); }
+    .av-blue   { background: var(--blue); }
+    .av-green  { background: var(--green); }
+    .av-yellow { background: var(--yellow); color: var(--dark); }
+
+    .member-card h3 { color: #fff; font-size: 0.95rem; font-weight: 800; }
+    .member-card p  { color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 4px; }
+
+    /* ── NEWS ── */
+    #news {
+      background: var(--white);
+    }
+
+    #news .section-label { background: #FFF8E1; color: #F57F17; }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+      margin-top: 50px;
+    }
+
+    .news-card {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transition: transform 0.25s, box-shadow 0.25s;
+      background: var(--light);
+    }
+
+    .news-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(0,0,0,0.1); }
+
+    .news-thumb {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .nc1 { background: linear-gradient(135deg, var(--blue) 0%, #64B5F6 100%); }
+    .nc2 { background: linear-gradient(135deg, var(--green) 0%, #A5D6A7 100%); }
+    .nc3 { background: linear-gradient(135deg, var(--red) 0%, #EF9A9A 100%); }
+
+    .news-body {
+      padding: 20px;
+    }
+
+    .news-date {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .news-body h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      margin: 8px 0;
+      color: var(--dark);
+    }
+
+    .news-body p {
+      font-size: 0.87rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* ── GALLERY ── */
+    #gallery {
+      background: var(--light);
+    }
+
+    #gallery .section-label { background: #FCE4EC; color: var(--red); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      gap: 14px;
+      margin-top: 50px;
+    }
+
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      min-height: 160px;
+      transition: transform 0.25s;
+      cursor: pointer;
+    }
+
+    .gallery-item:hover { transform: scale(1.03); }
+
+    .gallery-item.wide { grid-column: span 2; }
+    .gallery-item.tall { grid-row: span 2; min-height: 334px; }
+
+    .gi1 { background: linear-gradient(135deg, #1E88E5, #90CAF9); }
+    .gi2 { background: linear-gradient(135deg, #43A047, #A5D6A7); }
+    .gi3 { background: linear-gradient(135deg, #E53935, #EF9A9A); }
+    .gi4 { background: linear-gradient(135deg, #FDD835, #FFF176); }
+    .gi5 { background: linear-gradient(135deg, #1a1a2e, #3949AB); }
+    .gi6 { background: linear-gradient(135deg, #43A047, #FDD835); }
+
+    .gallery-placeholder-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 10px;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--white);
+    }
+
+    #contact .section-label { background: #E8F5E9; color: var(--green); }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 50px;
+      align-items: start;
+    }
+
+    .contact-info-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .ci-blue   { background: #E3F2FD; }
+    .ci-green  { background: #E8F5E9; }
+    .ci-red    { background: #FFEBEE; }
+
+    .contact-info-item h4 { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #999; }
+    .contact-info-item p  { font-size: 0.95rem; color: var(--dark); font-weight: 600; margin-top: 2px; }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 2px solid #e8e8e8;
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.92rem;
+      color: var(--dark);
+      background: var(--light);
+      transition: border-color 0.2s;
+      outline: none;
+      resize: none;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--blue); }
+
+    .contact-form textarea { height: 130px; }
+
+    .btn-submit {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      align-self: flex-start;
+    }
+
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30,136,229,0.35); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      padding: 48px 8% 28px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo img { width: 40px; }
+
+    .footer-logo span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+
+    .footer-colors {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .footer-colors span {
+      width: 28px; height: 6px;
+      border-radius: 99px;
+    }
+
+    footer p {
+      color: rgba(255,255,255,0.35);
+      font-size: 0.82rem;
+    }
+
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      nav { padding: 0 4%; }
+      .nav-links { display: none; }
+      .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item.wide { grid-column: span 1; }
+      .gallery-item.tall { grid-row: span 1; min-height: 160px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-brand">
+    <img src="1000074680.jpg" alt="UYS Logo" onerror="this.style.display='none'" />
+    <span>Uttara Youth<br>Society</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-circles">
+    <span class="c1"></span>
+    <span class="c2"></span>
+    <span class="c3"></span>
+    <span class="c4"></span>
+  </div>
+  <div class="hero-content">
+    <img class="hero-logo" src="1000074680.jpg" alt="Uttara Youth Society" onerror="this.style.display='none'" />
+    <h1>Uttara<br><span>Youth Society</span></h1>
+    <p class="hero-tagline">Empowering Young Voices in Uttara, Dhaka</p>
+    <div class="hero-badges">
+      <span class="badge badge-red">Community</span>
+      <span class="badge badge-blue">Leadership</span>
+      <span class="badge badge-green">Volunteering</span>
+      <span class="badge badge-yellow">Growth</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#programs" class="btn btn-primary">Explore Programs</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-text" style="max-width:560px; margin-bottom:0;">
+    <span class="section-label">Who We Are</span>
+    <h2 class="section-title">Building a Stronger Community, Together</h2>
+    <p class="section-sub">Uttara Youth Society is a non-profit social organization dedicated to empowering young people in Uttara, Dhaka — through education, community service, and leadership development.</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="about-values">
+        <div class="value-item">
+          <span class="value-dot" style="background:var(--blue)"></span>
+          <p><strong>Our Mission:</strong> To nurture responsible, compassionate, and active citizens who contribute meaningfully to society.</p>
+        </div>
+        <div class="value-item">
+          <span class="value-dot" style="background:var(--red)"></span>
+          <p><strong>Our Vision:</strong> A thriving Uttara community where every young person has the opportunity to lead and grow.</p>
+        </div>
+        <div class="value-item">
+          <span class="value-dot" style="background:var(--green)"></span>
+          <p><strong>Founded:</strong> Established in Uttara, Dhaka with a commitment to volunteerism and social impact.</p>
+        </div>
+        <div class="value-item">
+          <span class="value-dot" style="background:var(--yellow)"></span>
+          <p><strong>Our Values:</strong> Unity, Integrity, Inclusivity, and Continuous Learning guide everything we do.</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-card ac-red">
+        <span class="num">200+</span>
+        <span class="lbl">Members</span>
+      </div>
+      <div class="about-card ac-blue">
+        <span class="num">50+</span>
+        <span class="lbl">Events Held</span>
+      </div>
+      <div class="about-card ac-yellow">
+        <span class="num">10+</span>
+        <span class="lbl">Years Active</span>
+      </div>
+      <div class="about-card ac-green">
+        <span class="num">30+</span>
+        <span class="lbl">Projects Done</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <span class="section-label">What We Do</span>
+  <h2 class="section-title">Our Programs & Activities</h2>
+  <p class="section-sub">From community clean-ups to leadership workshops — our programs are designed to create real impact.</p>
+  <div class="programs-grid">
+    <div class="program-card">
+      <div class="program-icon">📚</div>
+      <h3>Education Support</h3>
+      <p>Free tutoring, study circles, and scholarship awareness campaigns for underprivileged students in the Uttara area.</p>
+    </div>
+    <div class="program-card">
+      <div class="program-icon">🌱</div>
+      <h3>Environment Drives</h3>
+      <p>Tree plantations, neighborhood clean-up campaigns, and awareness drives to protect our local environment.</p>
+    </div>
+    <div class="program-card">
+      <div class="program-icon">🩺</div>
+      <h3>Health Camps</h3>
+      <p>Free medical check-ups, blood donation events, and health awareness programs for the community.</p>
+    </div>
+    <div class="program-card">
+      <div class="program-icon">🎯</div>
+      <h3>Leadership Training</h3>
+      <p>Workshops, seminars, and mentorship programs to develop the next generation of community leaders.</p>
+    </div>
+    <div class="program-card">
+      <div class="program-icon">🎨</div>
+      <h3>Cultural Events</h3>
+      <p>Celebrating national days, cultural festivals, and creative expression through arts and performance.</p>
+    </div>
+    <div class="program-card">
+      <div class="program-icon">🤝</div>
+      <h3>Social Welfare</h3>
+      <p>Winter clothing drives, food distribution, and support for families in need during emergencies.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <span class="section-label">Our People</span>
+  <h2 class="section-title">Meet the Team</h2>
+  <p class="section-sub">Dedicated volunteers and leaders who make Uttara Youth Society run with passion and purpose.</p>
+  <div class="team-grid">
+    <div class="member-card">
+      <div class="member-avatar av-blue">A</div>
+      <h3>President</h3>
+      <p>[Your Name Here]</p>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar av-red">V</div>
+      <h3>Vice President</h3>
+      <p>[Name]</p>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar av-green">S</div>
+      <h3>General Secretary</h3>
+      <p>[Name]</p>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar av-yellow">T</div>
+      <h3>Treasurer</h3>
+      <p>[Name]</p>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar av-blue">P</div>
+      <h3>Program Director</h3>
+      <p>[Name]</p>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar av-red">C</div>
+      <h3>Communications</h3>
+      <p>[Name]</p>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar av-green">E</div>
+      <h3>Event Coordinator</h3>
+      <p>[Name]</p>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar av-yellow">W</div>
+      <h3>Welfare Lead</h3>
+      <p>[Name]</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news">
+  <span class="section-label">Latest Updates</span>
+  <h2 class="section-title">News & Announcements</h2>
+  <p class="section-sub">Stay up to date with our latest activities, events, and community news.</p>
+  <div class="news-grid">
+    <div class="news-card">
+      <div class="news-thumb nc1">🌳</div>
+      <div class="news-body">
+        <span class="news-date">April 2025</span>
+        <h3>Annual Tree Plantation Drive</h3>
+        <p>Over 150 volunteers joined our annual tree plantation event across Uttara Sector 11 and 13, planting more than 500 saplings.</p>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-thumb nc2">🩸</div>
+      <div class="news-body">
+        <span class="news-date">March 2025</span>
+        <h3>Blood Donation Camp — Huge Success</h3>
+        <p>Our spring blood donation camp collected over 80 units of blood in partnership with a leading Dhaka hospital.</p>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-thumb nc3">🎓</div>
+      <div class="news-body">
+        <span class="news-date">February 2025</span>
+        <h3>Scholarship Awareness Workshop</h3>
+        <p>We hosted a seminar guiding 60+ students on national and international scholarship opportunities and application tips.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <span class="section-label">Gallery</span>
+  <h2 class="section-title">Moments That Matter</h2>
+  <p class="section-sub">Glimpses of our programs, events, and the people who make it all happen.</p>
+  <div class="gallery-grid">
+    <div class="gallery-item tall gi1">
+      <div class="gallery-placeholder-text">Community<br>Events</div>
+    </div>
+    <div class="gallery-item gi2">
+      <div class="gallery-placeholder-text">Tree<br>Plantation</div>
+    </div>
+    <div class="gallery-item gi3">
+      <div class="gallery-placeholder-text">Health<br>Camps</div>
+    </div>
+    <div class="gallery-item wide gi4">
+      <div class="gallery-placeholder-text" style="color:var(--dark);">Cultural Celebrations</div>
+    </div>
+    <div class="gallery-item gi5">
+      <div class="gallery-placeholder-text">Workshops</div>
+    </div>
+    <div class="gallery-item gi6">
+      <div class="gallery-placeholder-text">Volunteering</div>
+    </div>
+  </div>
+  <p style="margin-top:20px; font-size:0.85rem; color:#999; text-align:center;">
+    ✏️ Replace the colored placeholders above with your actual photos when publishing.
+  </p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <span class="section-label">Get In Touch</span>
+  <h2 class="section-title">Contact Us</h2>
+  <p class="section-sub">Have questions or want to get involved? Reach out — we'd love to hear from you.</p>
+  <div class="contact-wrapper">
+    <div>
+      <div class="contact-info-item">
+        <div class="contact-icon ci-blue">📍</div>
+        <div>
+          <h4>Address</h4>
+          <p>Uttara, Dhaka, Bangladesh</p>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon ci-green">📞</div>
+        <div>
+          <h4>Phone</h4>
+          <p>+880 [Your Number Here]</p>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon ci-red">✉️</div>
+        <div>
+          <h4>Email</h4>
+          <p>info@uttarayouthsociety.org</p>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon ci-blue">🌐</div>
+        <div>
+          <h4>Social Media</h4>
+          <p><a href="#" style="color:var(--blue)">Facebook</a> &nbsp;|&nbsp; <a href="#" style="color:var(--blue)">Instagram</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-row">
+        <input type="text" placeholder="Your Name" />
+        <input type="email" placeholder="Your Email" />
+      </div>
+      <input type="text" placeholder="Subject" />
+      <textarea placeholder="Your message..."></textarea>
+      <button class="btn-submit">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="1000074680.jpg" alt="UYS" onerror="this.style.display='none'" />
+    <span>Uttara Youth Society</span>
+  </div>
+  <div class="footer-colors">
+    <span style="background:var(--red)"></span>
+    <span style="background:var(--blue)"></span>
+    <span style="background:var(--green)"></span>
+    <span style="background:var(--yellow)"></span>
+  </div>
+  <p>© 2025 Uttara Youth Society · Uttara, Dhaka, Bangladesh</p>
+  <p style="margin-top:8px;"><a href="#hero">Back to top ↑</a></p>
+</footer>
+
+</body>
+</html>
